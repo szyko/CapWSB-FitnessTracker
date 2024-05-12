@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 // TODO: Provide Impl
 @Service
 public class TrainingServiceImpl implements TrainingProvider {
-    private final TrainingRepository trainingRepository;
+    private TrainingRepository trainingRepository;
     @Override
     public Optional<User> getTraining(final Long trainingId) {
         throw new UnsupportedOperationException("Not finished yet");
@@ -34,5 +34,13 @@ public class TrainingServiceImpl implements TrainingProvider {
 
     public Training createTraining(Training training) {
         return trainingRepository.save(training);
+    }
+    @Autowired
+    public void TrainingService(TrainingRepository trainingRepository) {
+        this.trainingRepository = trainingRepository;
+    }
+
+    public List<Training> getTrainingsForUser(Long userId) {
+        return trainingRepository.findByUserId(userId);
     }
 }

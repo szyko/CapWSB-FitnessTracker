@@ -30,4 +30,10 @@ public class TrainingController {
         Training newTraining = trainingService.createTraining(training);
         return new ResponseEntity<>(newTraining, HttpStatus.CREATED);
     }
+
+    @GetMapping("/trainings/userid/{userId}")
+    public ResponseEntity<List<Training>> getTrainingsForUser(@PathVariable Long userId) {
+        List<Training> trainings = trainingService.getTrainingsForUser(userId);
+        return ResponseEntity.ok(trainings);
+    }
 }
