@@ -53,4 +53,8 @@ class UserServiceImpl implements UserService, UserProvider {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
+    }
 }

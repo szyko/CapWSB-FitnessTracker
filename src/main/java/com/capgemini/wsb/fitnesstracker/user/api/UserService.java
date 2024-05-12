@@ -1,6 +1,7 @@
 package com.capgemini.wsb.fitnesstracker.user.api;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface (API) for modifying operations on {@link User} entities through the API.
@@ -11,4 +12,5 @@ public interface UserService {
     User createUser(User user);
     List<UserTO> findAllUsersBasicInfo();
 
+    Optional<User> findUserById(Long id);
 }

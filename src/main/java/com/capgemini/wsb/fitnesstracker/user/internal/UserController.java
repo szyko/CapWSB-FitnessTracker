@@ -1,6 +1,7 @@
 package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import com.capgemini.wsb.fitnesstracker.user.api.User;
+import com.capgemini.wsb.fitnesstracker.user.api.UserNotFoundException;
 import com.capgemini.wsb.fitnesstracker.user.api.UserTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -18,7 +19,7 @@ public class UserController {
 
     private final UserMapper userMapper;
 
-    @GetMapping("/test/")
+    @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.findAllUsers()
                           .stream()
@@ -39,5 +40,12 @@ public class UserController {
     @GetMapping("/basic")
     public List<UserTO> getAllUsersBasicInfo() {
         return userService.findAllUsersBasicInfo();
+    }
+
+    @GetMapping("/{id}")
+    public UserDto getUserById(@PathVariable Long id) {
+        return userService.findUserById(id)
+                .map(userMapper::toDto)
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 }
