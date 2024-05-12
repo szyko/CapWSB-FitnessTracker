@@ -1,5 +1,6 @@
 package com.capgemini.wsb.fitnesstracker.training.api;
 
+import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
 import com.capgemini.wsb.fitnesstracker.training.internal.TrainingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -48,6 +49,12 @@ public class TrainingController {
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         Timestamp timestamp = Timestamp.valueOf(dateTime);
         List<Training> trainings = trainingService.getTrainingsCompletedAfter(timestamp);
+        return ResponseEntity.ok(trainings);
+    }
+
+    @GetMapping("trainings/by-activity")
+    public ResponseEntity<List<Training>> getTrainingsByActivityType(@RequestParam ActivityType activityType) {
+        List<Training> trainings = trainingService.getTrainingsByActivityType(activityType);
         return ResponseEntity.ok(trainings);
     }
 }

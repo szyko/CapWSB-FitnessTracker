@@ -48,4 +48,8 @@ public class TrainingServiceImpl implements TrainingProvider {
         return trainingRepository.findTrainingsCompletedAfter(date);
     }
 
+    public List<Training> getTrainingsByActivityType(ActivityType activityType) {
+        return trainingRepository.findByActivityType(activityType);
+    }
+
 }

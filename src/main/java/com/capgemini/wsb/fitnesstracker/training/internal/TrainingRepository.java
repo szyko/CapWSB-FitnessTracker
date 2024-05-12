@@ -12,4 +12,6 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
 
     @Query("SELECT t FROM Training t WHERE t.endTime > :cutoffDate")
     List<Training> findTrainingsCompletedAfter(Timestamp cutoffDate);
+
+    List<Training> findByActivityType(ActivityType activityType);
 }
