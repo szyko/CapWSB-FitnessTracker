@@ -70,4 +70,9 @@ public class UserController {
         List<UserDto> users = userService.findUsersByEmailFragment(emailFragment);
         return ResponseEntity.ok(users);
     }
+    @GetMapping("/search/age")
+    public ResponseEntity<List<UserDto>> findUsersByAge(@RequestParam("age") Integer age) {
+        List<UserDto> users = userService.findUsersOlderThan(age);
+        return ResponseEntity.ok(users);
+    }
 }
