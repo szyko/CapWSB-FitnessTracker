@@ -2,6 +2,8 @@ package com.capgemini.wsb.fitnesstracker.training.api;
 
 import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
 import com.capgemini.wsb.fitnesstracker.training.internal.TrainingServiceImpl;
+import com.capgemini.wsb.fitnesstracker.user.api.UserTO;
+import com.capgemini.wsb.fitnesstracker.user.internal.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -57,4 +59,11 @@ public class TrainingController {
         List<Training> trainings = trainingService.getTrainingsByActivityType(activityType);
         return ResponseEntity.ok(trainings);
     }
+
+    @PutMapping("trainings/update/{trainingId}")
+    public ResponseEntity<TrainingTO> updateTraining(@PathVariable Long trainingId, @RequestBody TrainingTO trainingTO) {
+        TrainingTO updatedTrainingTO = trainingService.updateTraining(trainingId, trainingTO);
+        return ResponseEntity.ok(updatedTrainingTO);
+    }
+
 }

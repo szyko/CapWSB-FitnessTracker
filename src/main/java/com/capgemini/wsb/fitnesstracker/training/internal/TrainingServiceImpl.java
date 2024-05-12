@@ -4,6 +4,7 @@ import com.capgemini.wsb.fitnesstracker.training.api.Training;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingProvider;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingTO;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,31 @@ public class TrainingServiceImpl implements TrainingProvider {
 
     public List<Training> getTrainingsByActivityType(ActivityType activityType) {
         return trainingRepository.findByActivityType(activityType);
+    }
+
+    @Transactional
+    public TrainingTO updateTraining(Long trainingId, TrainingTO trainingTO) {
+        Training existingTraining = trainingRepository.findById(trainingId)
+                .orElseThrow(() -> new RuntimeException(String.valueOf(trainingId)));
+
+        if (trainingTO.getActivityType() != null) {
+            existingTraining.setActivityType(trainingTO.getActivityType());
+        }
+        if (trainingTO.getDistance() != null) {
+            existingTraining.setDistance(trainingTO.getDistance());
+        }
+        if (trainingTO.getStartTime() != null) {
+            existingTraining.setStartTime(trainingTO.getStartTime());
+        }
+        if (trainingTO.getEndTime() != null) {
+            existingTraining.setEndTime(trainingTO.getEndTime());
+        }
+        if (trainingTO.getAverageSpeed() != null) {
+            existingTraining.setAverageSpeed(trainingTO.getAverageSpeed());
+        }
+
+        trainingRepository.save(existingTraining);
+        return trainingTO; // Might need to map the updated entity back to a DTO
     }
 
 }

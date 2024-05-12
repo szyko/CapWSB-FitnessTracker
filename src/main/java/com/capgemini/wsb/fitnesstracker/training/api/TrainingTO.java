@@ -2,6 +2,7 @@ package com.capgemini.wsb.fitnesstracker.training.api;
 
 import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,9 +14,10 @@ public class TrainingTO {
     private Date startTime;
     private Date endTime;
     private ActivityType activityType;
-    private double distance;
-    private double averageSpeed;
+    private Double distance;
+    private Double averageSpeed;
 
+    @JsonCreator
     public TrainingTO(Training training) {
         this.id = training.getId();
         this.user = training.getUser();
@@ -25,4 +27,5 @@ public class TrainingTO {
         this.distance = training.getDistance();
         this.averageSpeed = training.getAverageSpeed();
     }
+
 }
