@@ -22,6 +22,18 @@ class UserServiceImpl implements UserService, UserProvider {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
+
+    @Override
+    public UserDto createUser(UserDto userDto) {
+        User user = userMapper.toEntity(userDto);
+        user = userRepository.save(user);
+        return userMapper.toDto(user);
+    }
     @Override
     public User createUser(final User user) {
         log.info("Creating User {}", user);

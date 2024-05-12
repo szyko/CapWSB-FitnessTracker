@@ -6,6 +6,7 @@ import com.capgemini.wsb.fitnesstracker.user.api.UserTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,5 +48,14 @@ public class UserController {
         return userService.findUserById(id)
                 .map(userMapper::toDto)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
+        // Wywołanie metody serwisowej do tworzenia użytkownika i przechwycenie wyniku
+        UserDto createdUserDto = userService.createUser(userDto);
+
+        // Zwrócenie odpowiedzi HTTP z utworzonym obiektem DTO
+        return ResponseEntity.ok(createdUserDto);
     }
 }
