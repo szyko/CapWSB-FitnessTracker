@@ -1,6 +1,7 @@
 package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import com.capgemini.wsb.fitnesstracker.user.api.User;
+import com.capgemini.wsb.fitnesstracker.user.api.UserTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
@@ -11,13 +12,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/users")
 @RequiredArgsConstructor
-class UserController {
+public class UserController {
 
     private final UserServiceImpl userService;
 
     private final UserMapper userMapper;
 
-    @GetMapping
+    @GetMapping("/test/")
     public List<UserDto> getAllUsers() {
         return userService.findAllUsers()
                           .stream()
@@ -35,4 +36,8 @@ class UserController {
         return null;
     }
 
+    @GetMapping("/basic")
+    public List<UserTO> getAllUsersBasicInfo() {
+        return userService.findAllUsersBasicInfo();
+    }
 }
