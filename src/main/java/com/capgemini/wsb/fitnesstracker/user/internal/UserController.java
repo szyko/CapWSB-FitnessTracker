@@ -59,9 +59,15 @@ public class UserController {
         return ResponseEntity.ok(createdUserDto);
     }
 
-    @DeleteMapping("delete/{userId}")
+    @DeleteMapping("/delete/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<UserDto>> findUsersByEmailFragment(@RequestParam String emailFragment) {
+        List<UserDto> users = userService.findUsersByEmailFragment(emailFragment);
+        return ResponseEntity.ok(users);
     }
 }

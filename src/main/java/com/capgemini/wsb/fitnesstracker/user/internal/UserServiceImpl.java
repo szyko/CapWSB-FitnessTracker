@@ -27,7 +27,6 @@ class UserServiceImpl implements UserService, UserProvider {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
-
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = userMapper.toEntity(userDto);
@@ -42,36 +41,36 @@ class UserServiceImpl implements UserService, UserProvider {
         }
         return userRepository.save(user);
     }
-
     @Override
     public Optional<User> getUser(final Long userId) {
         return userRepository.findById(userId);
     }
-
     @Override
     public Optional<User> getUserByEmail(final String email) {
         return userRepository.findByEmail(email);
     }
-
     @Override
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
-
     @Override
     public List<UserTO> findAllUsersBasicInfo() {
         return userRepository.findAll().stream()
                 .map(user -> new UserTO(user.getId(), user.getFirstName()))
                 .collect(Collectors.toList());
     }
-
     @Override
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
-
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+    }
+    @Override
+    public List<UserDto> findUsersByEmailFragment(String emailFragment) {
+        return userRepository.findByEmailContainingIgnoreCase(emailFragment).stream()
+                .map(user -> new UserDto(user.getId(), null,null,null, user.getEmail()))
+                .collect(Collectors.toList());
     }
 }
