@@ -81,4 +81,12 @@ class UserServiceImpl implements UserService, UserProvider {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public UserDto updateUser(UserDto userDto) {
+        User existingUser = userRepository.findById(userDto.Id())
+                .orElseThrow(() -> new RuntimeException(String.valueOf(userDto.Id())));
+        userMapper.updateUserFromDto(userDto, existingUser);
+        existingUser = userRepository.save(existingUser);
+        return userMapper.toDto(existingUser);
+    }
 }

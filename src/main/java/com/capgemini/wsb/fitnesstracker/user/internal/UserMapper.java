@@ -20,9 +20,14 @@ class UserMapper {
                 user.getEmail()
         );
     }
-
     public User toEntity(UserDto dto) {
         return new User(dto.firstName(), dto.lastName(), dto.birthdate(), dto.email());
     }
 
+    public void updateUserFromDto(UserDto dto, User user) {
+        user.setFirstName(dto.firstName());
+        user.setLastName(dto.lastName());
+        user.setBirthdate(dto.birthdate());
+        user.setEmail(dto.email());
+    }
 }

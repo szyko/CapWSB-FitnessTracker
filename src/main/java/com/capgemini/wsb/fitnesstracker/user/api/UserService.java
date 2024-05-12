@@ -16,4 +16,5 @@ public interface UserService {
     Optional<User> findUserById(Long id);
     void deleteUser(Long userId);
     List<UserDto> findUsersByEmailFragment(String emailFragment);
+    UserDto updateUser(UserDto userDto);
 }

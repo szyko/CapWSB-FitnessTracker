@@ -75,4 +75,10 @@ public class UserController {
         List<UserDto> users = userService.findUsersOlderThan(age);
         return ResponseEntity.ok(users);
     }
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
+        userDto = new UserDto(userId, userDto.firstName(), userDto.lastName(), userDto.birthdate(), userDto.email());
+        UserDto updatedUserDto = userService.updateUser(userDto);
+        return ResponseEntity.ok(updatedUserDto);
+    }
 }
