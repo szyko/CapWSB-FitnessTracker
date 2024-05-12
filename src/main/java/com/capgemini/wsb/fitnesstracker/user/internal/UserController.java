@@ -58,4 +58,10 @@ public class UserController {
         // Zwrócenie odpowiedzi HTTP z utworzonym obiektem DTO
         return ResponseEntity.ok(createdUserDto);
     }
+
+    @DeleteMapping("delete/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
+    }
 }

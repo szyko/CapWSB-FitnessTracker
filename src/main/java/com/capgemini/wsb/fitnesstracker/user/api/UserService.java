@@ -13,6 +13,6 @@ public interface UserService {
     User createUser(User user);
     UserDto createUser(UserDto userDto);
     List<UserTO> findAllUsersBasicInfo();
-
     Optional<User> findUserById(Long id);
+    void deleteUser(Long userId);
 }
