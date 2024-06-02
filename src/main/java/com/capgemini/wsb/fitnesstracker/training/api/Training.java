@@ -19,6 +19,9 @@ public class Training {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

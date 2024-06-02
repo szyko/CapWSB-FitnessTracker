@@ -75,7 +75,7 @@ public class TrainingServiceImpl implements TrainingProvider {
         }
 
         trainingRepository.save(existingTraining);
-        return trainingTO; // Might need to map the updated entity back to a DTO
+        return trainingTO;
     }
 
 }
